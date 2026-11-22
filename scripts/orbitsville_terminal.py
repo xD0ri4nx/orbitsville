@@ -97,11 +97,15 @@ def main() -> None:
                     now = datetime.datetime.now(datetime.timezone.utc).strftime(
                         "%H:%M:%S UTC"
                     )
-                    print(
+                    line = (
                         f"[{now}] [{dec['mode']}] {dec['snr']:+3d} dB | "
                         f"{dec['df']:4d} Hz | {dec['message']}"
                     )
+                    print(line)
                     sys.stdout.flush()
+
+                    with open("lunar_decodes.log", "a", encoding="utf-8") as log_file:
+                        log_file.write(line + "\n")
 
         except KeyboardInterrupt:
             break
